@@ -9,7 +9,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String Home() {
-		String str = "Jjud Mansei";
+		String str = "Jjud";
 		if(StringUtils.isNotEmpty(str)) {
 			return str;
 		}else {
