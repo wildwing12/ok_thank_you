@@ -22,16 +22,6 @@ public class PdTableController extends AbstractController{
 	
 	@GetMapping("/pdlist")
 	public Map<String, Object> pdList(Map<String,Object> map) {
-		System.out.println("쥬드마스터");
-		System.out.println("쥬드마스터");
-		System.out.println("쥬드마스터");
-		System.out.println("쥬드마스터");
-		System.out.println("쥬드마스터");
-		System.out.println("쥬드마스터");
-		
-		System.out.println("쥬드마스터");
-		System.out.println("쥬드마스터");System.out.println("쥬드마스터");
-		System.out.println("쥬드마스터");
 		return makeQueryResultMap(pdTableService.pdList(map));
 	}
 
