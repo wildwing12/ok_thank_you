@@ -26,7 +26,7 @@ public class PdTableController extends AbstractController{
 		return makeQueryResultMap(pdTableService.pdList(map));
 	}
 
-	/*@RequestMapping(value = "/members", method = RequestMethod.GET)
+	@RequestMapping(value = "/members", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> selectList() {
 		return makeQueryResultMap(memberService.selectList());
@@ -57,5 +57,5 @@ public class PdTableController extends AbstractController{
 	public Map<String, Object> delete(String paramStr) throws Exception {
 		return makeResultMap(memberService.delete((Member)getModel(paramStr, Member.class)));
 	}
-	*/
+	
 }
