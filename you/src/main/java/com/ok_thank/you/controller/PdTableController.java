@@ -34,7 +34,7 @@ public class PdTableController extends AbstractController{
 	@RequestMapping(value = "/member/{rowId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> selectOne(@PathVariable String rowId) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new dHashMap<String, Object>();
 		map.put("rowId", rowId);
 		return makeQueryResultMap(memberService.selectOne(map));
 	}
