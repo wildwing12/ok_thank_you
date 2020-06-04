@@ -44,6 +44,16 @@ dependencies {
 	// Swagger 2
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2' 
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	
+	//db로그
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+	//스프링 시큐리티
+	//compile("org.springframework.boot:spring-boot-starter-security")
+	
+	//jsp
+	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+	compile('javax.servlet:jstl:1.2')
 
 	   
 }
