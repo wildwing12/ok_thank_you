@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ok_thank.you.mapper.TestsMapper">
+	<select id="list" parameterType="java.util.HashMap" resultType="java.util.HashMap" >
+		SELECT 
+				IDX
+			   ,NAME
+			  ,POSITION
+			  ,AGE
+			  ,OFFICE
+			  ,DATE_FORMAT(START_DATE,'%Y-%m-%d') START_DATE
+			  ,SALARY
+		FROM TESTS
+		WHERE USE_YN ='Y'
+	</select>
+	
+	<insert id="put">
+		INSERT INTO TESTS(
+						NAME
+					  ,POSITION
+					  ,AGE
+					  ,OFFICE
+					  ,START_DATE
+					  ,SALARY
+					  ,ETC
+					  ,REG_DT
+					  ,USE_YN
+					  ,MOD_DT
+					  )
+				VALUES(
+						#{name}
+						,#{position}
+						,#{age}
+						,#{office}
+						,now()
+						,#{salary}
+						,#{etc}
+						,now()
+						,'Y'
+						,now()
+						);
+	</insert>
+	
+	<delete id="delete">
+		delete from TESTS WHERE IDX=#{idx}
+	</delete>
+</mapper>

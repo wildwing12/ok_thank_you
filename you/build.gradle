@@ -48,7 +48,12 @@ dependencies {
 	//db로그
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 
-
+	//스프링 시큐리티
+	//compile("org.springframework.boot:spring-boot-starter-security")
+	
+	//jsp
+	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+	compile('javax.servlet:jstl:1.2')
 
 	   
 }
