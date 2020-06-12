@@ -27,6 +27,8 @@ public class HomeController extends AbstractController{
 	@Autowired
 	TestsService testsService;
 	
+	
+	
 	@GetMapping("/")
 	@ResponseBody
 	public ModelAndView home(ModelAndView mv) {
@@ -53,4 +55,5 @@ public class HomeController extends AbstractController{
 		log.info("삭제되었다>>>>>>>>>>>>>>>>"+paramStr);
 		return makeResultMap(testsService.delete((TestsVO)getModel(paramStr,TestsVO.class)));
 	}
+	
 }

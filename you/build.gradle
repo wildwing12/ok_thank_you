@@ -55,7 +55,7 @@ dependencies {
 	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 	compile('javax.servlet:jstl:1.2')
 
-	   
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 }
 
 test {

@@ -18,5 +18,6 @@ public interface TestsMapper {
 
 	public abstract Integer delete(TestsVO model);
 
+	
 
 }

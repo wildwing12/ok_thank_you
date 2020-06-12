@@ -14,5 +14,4 @@ public interface TestsService {
 	public abstract Integer delete(TestsVO model);
 
 
-
 }
