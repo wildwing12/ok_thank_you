@@ -16,7 +16,7 @@ public class HomeController extends AbstractController{
 	
 	@GetMapping("/")
 	public ModelAndView main() throws Exception{
-		return new ModelAndView("main");
+		return new ModelAndView("userLogin");
 	}
 	
 	@GetMapping("/user/login")
