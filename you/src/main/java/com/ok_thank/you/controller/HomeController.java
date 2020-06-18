@@ -1,19 +1,9 @@
 package com.ok_thank.you.controller;
 
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.ok_thank.you.dto.TestsVO;
-import com.ok_thank.you.service.TestsService;
 
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +14,21 @@ import lombok.extern.slf4j.Slf4j;
 @Api(value="swag-rest-controller", description="HomeController")
 public class HomeController extends AbstractController{
 	
+	@GetMapping("/")
+	public ModelAndView main() throws Exception{
+		return new ModelAndView("main");
+	}
+	
+	@GetMapping("/user/login")
+	public ModelAndView login() throws Exception{
+		return new ModelAndView("userLogin");
+	}
+	
+	@GetMapping("/mainHome")
+	public ModelAndView loginMain() throws Exception{
+		return new ModelAndView("home");
+	}
+	/*
 	@Autowired
 	TestsService testsService;
 	
@@ -55,5 +60,5 @@ public class HomeController extends AbstractController{
 		log.info("삭제되었다>>>>>>>>>>>>>>>>"+paramStr);
 		return makeResultMap(testsService.delete((TestsVO)getModel(paramStr,TestsVO.class)));
 	}
-	
+	*/
 }
