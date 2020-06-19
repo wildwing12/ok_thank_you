@@ -18,14 +18,14 @@ import io.swagger.annotations.Api;
 @Api(value="swag-rest-controller", description="PdTableController")
 public class PdTableController extends AbstractController{
 	
-	@Autowired
+/*	@Autowired
 	PdTableService pdTableService;
 	
 	@CrossOrigin
 	@GetMapping("/pdlist")
 	public Map<String, Object> pdList(Map<String,Object> map) {
 		return makeQueryResultMap(pdTableService.pdList(map));
-	}
+	}*/
 
 /*	@RequestMapping(value = "/members", method = RequestMethod.GET)
 	@ResponseBody

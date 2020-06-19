@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ok_thank.you.mapper.LoginMapper">
+ <select id="getSelectMeberInfo" parameterType="String" resultType="com.ok_thank.you.dto.Member">
+        SELECT 
+            ID as id
+            , ID as username
+            , PASSWORD as password
+            , MEMBER_NAME as memberName
+            , USER_ROLE as userRole
+        FROM SECURITY_MEMBER
+           WHERE ID = #{id}
+    </select>
+    
+    <update id="setUpdatePasswordLockCnt" parameterType="String">
+         UPDATE SECURITY_MEMBER 
+        SET
+              PASSWORD_LOCK = COALESCE(PASSWORD_LOCK, 0) + 1
+        WHERE
+              id = #{id}
+    </update>
+ 
+    <update id="setUpdatePasswordLockCntReset" parameterType="String">
+         UPDATE SECURITY_MEMBER 
+        SET
+              PASSWORD_LOCK = 0
+        WHERE
+              id = #{id}
+    </update>
+ 
+    <insert id="setInsertLoginLog" parameterType="com.ok_thank.you.dto.LoginLog">
+        INSERT INTO SECURITY_MEMBER_LOG
+            (
+                
+                ID 
+                , LOGIN_IP 
+                , LOGIN_DATE 
+                , STATUS 
+            )
+        VALUES
+            (
+                  
+                #{id}
+                , #{loginIp}
+                , now()
+                , #{status}
+            )
+    </insert>
+<insert id="setInsertMember" parameterType="com.ok_thank.you.dto.Member">
+        INSERT INTO SECURITY_MEMBER
+            (
+                 
+                ID 
+                , PASSWORD 
+                , MEMBER_NAME 
+                , USER_ROLE 
+                  , EMAIL 
+                , PASSWORD_LOCK 
+                , PASSWORD_CHG_DATE
+                , REG_DATE 
+                , MOD_DATE 
+                , STATUS
+            )
+        VALUES
+            (
+                
+                 #{id}
+                , #{password}
+                , #{memberName}
+                , #{userRole}
+                , #{email}
+                , 0
+                , now()
+                , now()
+                , now()
+                , 'O'
+            )
+    </insert>
+</mapper>
