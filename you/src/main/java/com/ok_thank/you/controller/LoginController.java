@@ -1,5 +1,6 @@
 package com.ok_thank.you.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,9 +44,13 @@ public class LoginController {
     @PostMapping("/join/idCheck")
     @ResponseBody
     public String idCheck(@RequestParam String inputId) throws Exception{
-        Member member = securityService.getSelectMeberInfo(inputId);
-        String canUse = member != null ? "" : "Y";
-        return canUse;
+    	String canUse = "";
+    	//입력 아이디 null체크(빈값이거나 null일 경우 keyup 이벤트에서 체크 완료되지 않도록)
+    	if(StringUtils.isNotEmpty(inputId)) {
+    		Member member = securityService.getSelectMeberInfo(inputId);
+            canUse = member != null ? "" : "Y";
+    	}
+    	return canUse;
     }
     
     //회원가입 Insert 
