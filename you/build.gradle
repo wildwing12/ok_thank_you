@@ -50,7 +50,8 @@ dependencies {
 
 	//스프링 시큐리티
 	compile("org.springframework.boot:spring-boot-starter-security")
-	
+	compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.0.6.RELEASE'
+
 	//jsp
 	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 	compile('javax.servlet:jstl:1.2')

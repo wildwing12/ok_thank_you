@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Api(value="swag-rest-controller", description="HomeController")
 public class HomeController extends AbstractController{
-	
+/*	
 	@GetMapping("/")
 	public ModelAndView main() throws Exception{
 		return new ModelAndView("userLogin");
@@ -27,7 +27,7 @@ public class HomeController extends AbstractController{
 	@GetMapping("/mainHome")
 	public ModelAndView loginMain() throws Exception{
 		return new ModelAndView("home");
-	}
+	}*/
 	/*
 	@Autowired
 	TestsService testsService;
