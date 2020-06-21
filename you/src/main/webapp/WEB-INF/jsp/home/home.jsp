@@ -66,6 +66,8 @@
         <br/>
         <br/>
         <a href="/login/logout">[로그아웃]</a>
+        <a href="/todo/kim">김종학 할일목록</a>
+        <a href="/todo/lee">이현주 할일목록</a>
     </div>
 </body>
 </html>
