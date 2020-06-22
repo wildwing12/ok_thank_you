@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class Diary {
 	
+	private Integer rnum;
+	
 	private Integer idx;
 	
 	private String writer;
