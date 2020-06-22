@@ -37,12 +37,12 @@ function insert(){
 			<td>${list.content }</td>
 			<td>${list.writer}</td>
 			<td>${list.regDt }</td>
-			<td><a href="#" onclick="del()"><button>삭제</button></a></td>
+			<td><a href="#" onclick="del(${list.idx})"><button>삭제</button></a></td>
 		</tr>
 		<script type="text/javascript">
-			function del(){
+			function del(idx){
 				if(confirm("삭제하시겠습니까?")){
-					location.href="/todo/del/${list.idx}";
+					location.href="/todo/del/"+idx;
 					alert("삭제되었습니다.");
 				}else{
 					alert('취소되었습니다.');
