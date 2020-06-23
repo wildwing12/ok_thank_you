@@ -73,4 +73,17 @@ public class DiaryServiceImpl implements DiaryService{
 			throw new RuntimeException();
 		}
 	}
+
+	@Override
+	public void asyncDelete(Integer idx) {
+		try {
+			if(idx != null) {
+				mapper.asyncDelete(idx);
+				log.info("글번호: "+idx);
+			}
+		} catch (Exception e) {
+			log.error("삭제 실패! => {}", e.getMessage());
+			throw new RuntimeException();
+		}
+	}
 }

@@ -27,6 +27,7 @@ public interface DiaryMapper {
 	public List<Diary> asyncList();
 	
 	public void asyncInsert(Diary diary);
-
+	
+	public void asyncDelete(Integer idx);
 	
 }

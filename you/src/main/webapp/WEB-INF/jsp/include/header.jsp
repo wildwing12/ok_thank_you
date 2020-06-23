@@ -11,3 +11,5 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- axios CDN -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script src="/js/constants.js"></script>

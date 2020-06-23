@@ -22,6 +22,10 @@
 			  ,now()
 			  ,now())
 	</insert>
+	<delete id="asyncDelete">
+		DELETE FROM DIARY
+		WHERE IDX = #{idx}
+	</delete>
 
 	<select id="list" resultType="com.ok_thank.you.dto.Diary">
 		SELECT
