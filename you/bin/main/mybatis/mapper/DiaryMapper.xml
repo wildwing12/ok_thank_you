@@ -21,4 +21,18 @@
 		insert into DIARY(WRITER,CONTENT,REG_DT,UDT_DT) 
 					VALUES('Kim',#{content},now(),now())
 	</insert>
+	
+	<select id="aList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			FORMAT(@ROWNUM := @ROWNUM+1, 0) AS RNUM
+			,D.IDX
+			,D.WRITER
+			,D.CONTENT
+			,date_format(D.REG_DT,'%Y-%m-%d') as REG_DT
+			,D.UDT_DT
+		FROM DIARY D ,(SELECT @ROWNUM:=0) R
+		WHERE D.WRITER ='Kim'
+		ORDER BY IDX 
+	</select>
+	
 </mapper>

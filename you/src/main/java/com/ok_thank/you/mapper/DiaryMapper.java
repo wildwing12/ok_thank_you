@@ -1,6 +1,7 @@
 package com.ok_thank.you.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,10 @@ public interface DiaryMapper {
 	public void del(int idx);
 
 	public void insert(String content);
+
+	public List<Map<String, Object>> aList(Map<String, Object> map);
+
+	public Integer insert(Diary model);
 
 	
 }
