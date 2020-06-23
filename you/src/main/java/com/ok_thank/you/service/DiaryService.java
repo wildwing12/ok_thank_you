@@ -16,5 +16,11 @@ public interface DiaryService {
 	public List<Map<String, Object>> aList(Map<String, Object> map);
 
 	public Integer insert(Diary model);
+	
+	
+	//비동기(HYUNJOO)
+	public List<Diary> asyncList();
+		
+	public void asyncInsert(Diary diary);
 
 }
