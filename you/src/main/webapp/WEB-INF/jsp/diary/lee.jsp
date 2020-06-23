@@ -44,9 +44,11 @@ $(document).ready(function(){
 	list();
 });
 async function list(){
-	$('tbody').empty();
+	//$('tbody').empty();
+	let tbody = document.querySelector('tbody');
+	tbody.innerHTML = "";
 	try {
-		const res = await axios.get('http://localhost:8008/todo/lee/asyncList');
+		const res = await axios.get(URI+'/todo/lee/asyncList');
 		//console.log(res);
 		if(res.status == 200){
 			const list = res.data.list;
@@ -58,8 +60,9 @@ async function list(){
 				.append($('<td>').html(item.content))
 				.append($('<td>').html(item.writer))
 				.append($('<td>').html(item.regDt))
-				.append($('<td>').append($('<button>').attr('id','del'+i).html('삭제')))
+				.append($('<td>').append($('<button>').attr('id',item.idx).html('삭제')))
 				.appendTo('tbody');
+				$('#'+item.idx).attr('onclick','asyncDelete('+item.idx+')');
 				i++;
 			});
 		}
@@ -71,9 +74,20 @@ const insert = async function(){
 	let content = $('#content').val();
 	let paramData = { content: content };
 	try {
-		const res = await axios.post('http://localhost:8008/todo/lee/insert', paramData);
+		const res = await axios.post(URI+'/todo/lee/insert', paramData);
 		if(res.status == 200){
 			$('#content').val('');
+			list();
+		}
+	} catch (e) {
+		console.log(e);
+	}
+}
+const asyncDelete = async (idx) => {
+	//console.log(idx);
+	try {
+		const res = await axios.delete(URI+'/todo/lee/'+idx);
+		if(res.status == 200){
 			list();
 		}
 	} catch (e) {
