@@ -79,6 +79,7 @@ public class KimController {
 
 		  objSheet = objWorkBook.createSheet("첫번째 시트"); // 워크시트 생성
 
+		  //디비에서 받아오는 값
 		  List<Diary> rowList = diaryService.List();
 
 		  // 행으로 제작을 하네
