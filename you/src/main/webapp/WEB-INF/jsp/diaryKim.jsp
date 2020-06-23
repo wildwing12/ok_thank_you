@@ -16,6 +16,7 @@ function insert(){
 }
 </script>
 <h1>김종학 다이어리</h1>
+<h6><a href="/exceljjud">주드러스한 다운로드</a></h6>
 <table border="1" style="margin: 0 auto; border: 1px solid black; border-collapse: collapse;" >
 	<thead>
 		<tr>
