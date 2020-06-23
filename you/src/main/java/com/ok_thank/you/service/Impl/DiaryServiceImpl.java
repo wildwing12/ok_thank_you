@@ -10,6 +10,9 @@ import com.ok_thank.you.dto.Diary;
 import com.ok_thank.you.mapper.DiaryMapper;
 import com.ok_thank.you.service.DiaryService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class DiaryServiceImpl implements DiaryService{
 
@@ -40,5 +43,34 @@ public class DiaryServiceImpl implements DiaryService{
 	public Integer insert(Diary model) {
 		return mapper.insert(model);
 	}
+	
+	
+	//비동기(HYUNJOO)
+	@Override
+	public List<Diary> asyncList() {
+		List<Diary> list = null;
+		try {
+			list = mapper.asyncList();
+			log.info(list.toString());
+		} catch (Exception e) {
+			log.error("리스트 조회 실패! => {}", e.getMessage());
+			throw new RuntimeException();
+		}
+		return list;
+	}
 
+	@Override
+	public void asyncInsert(Diary diary) {
+		String writer = "Lee";
+		try {
+			if(diary != null) {
+				diary.setWriter(writer);
+				mapper.asyncInsert(diary);
+				log.info("작성자: "+writer);
+			}
+		} catch (Exception e) {
+			log.error("다이어리 입력 실패! => {}", e.getMessage());
+			throw new RuntimeException();
+		}
+	}
 }
