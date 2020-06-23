@@ -61,5 +61,6 @@ function insert(){
 		</tr>
 	</tfoot>
 </table>
+<a href="/async/list">비동기 페이지</a>
 </body>
 </html>
