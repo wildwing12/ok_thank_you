@@ -18,10 +18,10 @@ public class Pager {
 	private Integer endPageNum;
 	private Integer endRowNum;
 	
-	public Map<String, Object> pageReturn(String pn, int tot , int display, int offset){
+	public Map<String, Object> pageReturn(String pn, int tot , int display, int offset, int pageRowCnt ){
 		
 		this.pageNum = 0;
-		this.pageRowCnt = 10;
+		this.pageRowCnt = pageRowCnt;
 		this.pageDisplayCnt = display;
 		this.endRowNum = offset;
 		
