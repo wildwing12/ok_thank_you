@@ -26,6 +26,11 @@
 		DELETE FROM DIARY
 		WHERE IDX = #{idx}
 	</delete>
+	<select id="getRowCnt" resultType="Integer">
+		SELECT COUNT(*)
+		FROM DIARY
+		WHERE WRITER = #{writer}
+	</select>
 
 	<select id="list" resultType="com.ok_thank.you.dto.Diary">
 		SELECT
