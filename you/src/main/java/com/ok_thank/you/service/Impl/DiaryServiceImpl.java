@@ -89,7 +89,7 @@ public class DiaryServiceImpl implements DiaryService{
 
 	@Override
 	public int rowCnt() {
-		// TODO Auto-generated method stub
-		return 0;
+		int rowCnt = mapper.rowCnt();
+		return rowCnt;
 	}
 }

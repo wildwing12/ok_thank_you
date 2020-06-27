@@ -29,5 +29,7 @@ public interface DiaryMapper {
 	public void asyncInsert(Diary diary);
 	
 	public void asyncDelete(Integer idx);
+
+	public int rowCnt();
 	
 }
