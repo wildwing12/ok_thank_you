@@ -34,6 +34,7 @@ public class KimController {
 	
 	@RequestMapping("/todo/kim")
 	public ModelAndView diaryKim(ModelAndView mav) {
+		int rowCnt = diaryService.rowCnt();
 		List<Diary> list =diaryService.List();
 		mav.addObject("list",list);
 		mav.setViewName("diaryKim");

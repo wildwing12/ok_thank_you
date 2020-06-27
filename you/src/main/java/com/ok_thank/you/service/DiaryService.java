@@ -25,4 +25,6 @@ public interface DiaryService {
 	
 	public void asyncDelete(Integer idx);
 
+	public int rowCnt();
+
 }

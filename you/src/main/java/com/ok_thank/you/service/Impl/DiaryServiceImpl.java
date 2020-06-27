@@ -86,4 +86,10 @@ public class DiaryServiceImpl implements DiaryService{
 			throw new RuntimeException();
 		}
 	}
+
+	@Override
+	public int rowCnt() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
