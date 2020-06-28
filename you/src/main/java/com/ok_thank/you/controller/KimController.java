@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -34,12 +35,12 @@ public class KimController {
 	DiaryService diaryService;
 	
 	@RequestMapping("/todo/kim")
-	public ModelAndView diaryKim(@RequestParam(defaultValue = "1") int curPage, ModelAndView mav) {
-		int rowCnt = diaryService.rowCnt();
+	public ModelAndView diaryKim(@RequestParam(defaultValue = "1") int curPage, @RequestParam(defaultValue = "") String search, ModelAndView mav) {
+		int rowCnt = diaryService.rowCnt(search);
 		Pager pager = new Pager(rowCnt, curPage);
-		int pageScale = pager.PAGE_SCALE;//화면 출력될 로우 갯수
+		int pageScale = Pager.PAGE_SCALE;//화면 출력될 로우 갯수
 		int pageBegin= pager.getPageBegin()-1;//시작로우
-		List<Diary> list =diaryService.List(pageScale,pageBegin);
+		List<Diary> list =diaryService.List(pageScale,pageBegin,search);
 		mav.addObject("list",list);
 		mav.addObject("pager", pager);
 		mav.setViewName("diaryKim");
@@ -86,7 +87,7 @@ public class KimController {
 		  objSheet = objWorkBook.createSheet("첫번째 시트"); // 워크시트 생성
 
 		  //디비에서 받아오는 값
-		  List<Diary> rowList = diaryService.List();
+		  List<Diary> rowList = diaryService.list();
 
 		  // 행으로 제작을 하네
 		  // 1행
