@@ -2,15 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ok_thank.you.mapper.DiaryMapper">
 	<select id="asyncList" resultType="com.ok_thank.you.dto.Diary">
-		SELECT @ROWNUM := @ROWNUM+1 AS rnum
+		SELECT A.*
+		FROM (SELECT @ROWNUM := @ROWNUM+1 AS rnum
 			  ,d.idx
 			  ,d.writer
 			  ,d.content
 			  ,date_format(d.reg_dt,'%Y-%m-%d %H:%i:%S') AS regDt
 			  ,date_format(d.udt_dt,'%Y-%m-%d %H:%i:%S') AS udtDt
-		FROM DIARY d, (SELECT @ROWNUM := 0) r
-		WHERE d.writer = 'Lee'
-		ORDER BY idx DESC
+			FROM DIARY d, (SELECT @ROWNUM := 0) r
+			WHERE d.writer = 'Lee'
+			ORDER BY idx DESC) A
+		WHERE A.content LIKE #{keyword}
 	</select>
 	<select id="listLee" resultType="com.ok_thank.you.dto.Diary">
 		SELECT A.*

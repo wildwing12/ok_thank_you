@@ -27,29 +27,33 @@ table {
 			<th>삭제</th>
 		</tr>
 	</thead>
-	<tbody>
-		<!-- <tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td>
-				<button>삭제</button>
+	<tbody></tbody>
+	<tfoot>
+		<tr>
+			<td colspan="4">
+				<input id="keyword" placeholder="검색어를 입력하세요." />
 			</td>
-		</tr> -->
-	</tbody>
+			<td>
+				<button id="search">조회</button>
+			</td>
+		</tr>
+	</tfoot>
 </table>
 <script>
 $(document).ready(function(){
-	list();
+	list('');
 });
-async function list(){
+
+async function list(key){
 	//$('tbody').empty();
 	let tbody = document.querySelector('tbody');
 	tbody.innerHTML = "";
+	if(key == '' || key == null || key == undefined){
+		key = '';
+	}
 	try {
-		const res = await axios.get(URI+'/todo/lee/asyncList');
-		//console.log(res);
+		const res = await axios.get(URI+'/todo/lee/asyncList', {params: {keyword: key}});
+		//console.log('list => ',res);
 		if(res.status == 200){
 			const list = res.data.list;
 			list.forEach((item, i) => {
@@ -70,6 +74,23 @@ async function list(){
 		console.log(e);
 	}
 }
+
+$('#search').click(function(){
+	let keyword = $('#keyword').val();
+	if(keyword == '' || keyword == null || keyword == undefined){
+		keyword = '';
+	}
+	let searchParam = { keyword: keyword };
+	axios.get('/todo/lee/asyncList', { params: searchParam })
+		 .then(res => {
+			 //console.log(res);
+			 list(keyword);
+		 })
+		 .catch(e => {
+			console.log(e); 
+		 });
+});
+
 const insert = async function(){
 	let content = $('#content').val();
 	let paramData = { content: content };
@@ -83,6 +104,7 @@ const insert = async function(){
 		console.log(e);
 	}
 }
+
 const asyncDelete = async (idx) => {
 	//console.log(idx);
 	try {

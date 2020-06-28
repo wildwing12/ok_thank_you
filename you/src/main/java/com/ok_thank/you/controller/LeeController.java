@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ok_thank.you.dto.Diary;
+import com.ok_thank.you.dto.DiarySearchReq;
 import com.ok_thank.you.dto.Pager;
 import com.ok_thank.you.service.DiaryService;
 
@@ -36,9 +38,10 @@ public class LeeController {
 	}
 	
 	@GetMapping("/lee/asyncList")
-	public Map<String, Object> list() throws Exception {
+	public Map<String, Object> list(@ModelAttribute DiarySearchReq searchParam) throws Exception {
+		log.info("params => {}", searchParam);
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<Diary> list = diaryService.asyncList();
+		List<Diary> list = diaryService.asyncList(searchParam);
 		if(list != null) {
 			map.put("list", list);
 			map.put("cnt", list.size());
