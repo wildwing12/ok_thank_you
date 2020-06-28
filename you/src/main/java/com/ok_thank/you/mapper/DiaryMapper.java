@@ -22,7 +22,7 @@ public interface DiaryMapper {
 
 	public Integer insert(Diary model);
 	
-	public int rowCnt();
+	public int rowCnt(String search);
 	
 	public List<Diary> plist(Map<String, Object> map);
 	

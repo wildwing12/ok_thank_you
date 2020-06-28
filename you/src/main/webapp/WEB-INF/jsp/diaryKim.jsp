@@ -14,15 +14,27 @@ function insert(){
 	document.form1.submit();
 	alert("입력되었습니다.");
 }
-const list=(page)=>{
+const list=(page,search)=>{
+	if(search == null||search==""){
 	page = page || 1;
 	location.href = "/todo/kim?curPage="+page;
+	}else {
+		$('#sendSearch').attr('action','/todo/kim');
+		$('#sendSearch').submit();
+	}
+	
 }
 </script>
 <h1>김종학 다이어리</h1>
 <h6><a href="/exceljjud">주드러스한 다운로드</a></h6>
 <table border="1" style="margin: 0 auto; border: 1px solid black; border-collapse: collapse;" >
 	<thead>
+	<form id="sendSearch" name = "sendSearch" method="post" action="">
+		<tr>
+			<td colspan="4"><input type="text" name = "search" id="search"></td>
+			<td colspan="1"><button type="button" onclick="list(${pager.curPage},$('#search').val())">검색</button></td>
+		</tr>
+	</form>
 		<tr>
 			<th>번호</th>
 			<th>글내용</th>

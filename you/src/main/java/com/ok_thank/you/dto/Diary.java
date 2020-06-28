@@ -16,5 +16,7 @@ public class Diary {
 	private String regDt;
 	
 	private String udtDt;
+	
+	private String search;
 
 }

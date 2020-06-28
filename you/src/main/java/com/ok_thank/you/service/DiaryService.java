@@ -7,7 +7,7 @@ import com.ok_thank.you.dto.Diary;
 
 public interface DiaryService {
 
-	public List<Diary> List();
+	public List<Diary> list();
 
 	public void del(int idx);
 
@@ -17,9 +17,9 @@ public interface DiaryService {
 
 	public Integer insert(Diary model);
 	
-	public int rowCnt();
+	public int rowCnt(String search);
 	
-	public List<Diary> List(int pageScale, int pageBegin);
+	public List<Diary> List(int pageScale, int pageBegin, String search);
 	
 	
 	//비동기(HYUNJOO)

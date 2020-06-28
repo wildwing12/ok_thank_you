@@ -22,7 +22,7 @@ public class DiaryServiceImpl implements DiaryService{
 	DiaryMapper mapper;
 	
 	@Override
-	public List<Diary> List() {
+	public List<Diary> list() {
 		return mapper.list();
 	}
 
@@ -90,16 +90,17 @@ public class DiaryServiceImpl implements DiaryService{
 	}
 
 	@Override
-	public int rowCnt() {
-		int rowCnt = mapper.rowCnt();
+	public int rowCnt(String search) {
+		int rowCnt = mapper.rowCnt("%"+search+"%");
 		return rowCnt;
 	}
 
 	@Override
-	public List<Diary> List(int pageScale, int pageBegin) {
+	public List<Diary> List(int pageScale, int pageBegin, String search) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("pageScale", pageScale);
 		map.put("pageBegin",pageBegin);
+		map.put("search","%"+search+"%");
 		return mapper.plist(map);
 	}
 	

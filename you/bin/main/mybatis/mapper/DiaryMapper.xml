@@ -80,6 +80,9 @@
 	</select>
 	<select id="rowCnt" resultType="int">
 		select count(*) from DIARY where WRITER ='Kim'
+		
+			and content like #{search}
+		
 	</select>
 	<select id="plist" resultType="com.ok_thank.you.dto.Diary" >
 		select A.*
@@ -95,6 +98,9 @@
 			WHERE D.WRITER ='Kim'
 			ORDER BY rnum desc
 		) A
+		<if test="search != null">
+			where A.CONTENT like #{search}
+		</if>
 		limit #{pageScale} offset #{pageBegin}
 	</select>
 </mapper>
