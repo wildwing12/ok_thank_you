@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ok_thank.you.dto.Diary;
+import com.ok_thank.you.dto.Pager;
 import com.ok_thank.you.service.DiaryService;
 
 @RestController
@@ -33,10 +34,14 @@ public class KimController {
 	DiaryService diaryService;
 	
 	@RequestMapping("/todo/kim")
-	public ModelAndView diaryKim(ModelAndView mav) {
+	public ModelAndView diaryKim(@RequestParam(defaultValue = "1") int curPage, ModelAndView mav) {
 		int rowCnt = diaryService.rowCnt();
-		List<Diary> list =diaryService.List();
+		Pager pager = new Pager(rowCnt, curPage);
+		int pageScale = pager.PAGE_SCALE;//화면 출력될 로우 갯수
+		int pageBegin= pager.getPageBegin()-1;//시작로우
+		List<Diary> list =diaryService.List(pageScale,pageBegin);
 		mav.addObject("list",list);
+		mav.addObject("pager", pager);
 		mav.setViewName("diaryKim");
 		return mav;
 	}

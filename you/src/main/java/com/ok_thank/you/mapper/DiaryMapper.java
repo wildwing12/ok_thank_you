@@ -31,5 +31,7 @@ public interface DiaryMapper {
 	public void asyncDelete(Integer idx);
 
 	public int rowCnt();
+
+	public List<Diary> plist(Map<String, Object> map);
 	
 }

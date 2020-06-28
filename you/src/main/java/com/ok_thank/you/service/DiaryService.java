@@ -27,4 +27,6 @@ public interface DiaryService {
 
 	public int rowCnt();
 
+	public List<Diary> List(int pageScale, int pageBegin);
+
 }

@@ -14,6 +14,10 @@ function insert(){
 	document.form1.submit();
 	alert("입력되었습니다.");
 }
+const list=(page)=>{
+	page = page || 1;
+	location.href = "/todo/kim?curPage="+page;
+}
 </script>
 <h1>김종학 다이어리</h1>
 <h6><a href="/exceljjud">주드러스한 다운로드</a></h6>
@@ -62,6 +66,32 @@ function insert(){
 		</tr>
 	</tfoot>
 </table>
+ <c:if test="${pager.curBlock > 1}">
+               <a href="#" onclick="list('1')">[처음]</a>
+            </c:if>
+            <c:if test="${pager.curBlock > 1}">
+               <a href="#" onclick="list('${pager.prevPage}')">
+               [이전]</a>
+            </c:if>
+            <c:forEach var="num" begin="${pager.blockStart}" end="${pager.blockEnd}">
+               <c:choose>
+                  <c:when test="${num == pager.curPage}">
+                  <!-- 현재 페이지인 경우 하이퍼링크 제거 -->
+                     <span style="color:red;">${num}</span>
+                  </c:when>
+                  <c:otherwise>
+                     <a href="#" onclick="list('${num}')">${num}</a>
+                  </c:otherwise>
+               </c:choose>
+            </c:forEach>
+            <c:if test="${pager.curBlock < pager.totBlock}">
+               <a href="#"   onclick="list('${pager.nextPage}')">[다음]</a>
+            </c:if>
+            <c:if test="${pager.curPage < pager.totPage}">
+               <a href="#"   onclick="list('${pager.totPage}')">[끝]</a>
+            </c:if>
+
+<br>
 <a href="/async/list">비동기 페이지</a>
 </body>
 </html>
