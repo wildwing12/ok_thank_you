@@ -28,7 +28,7 @@ public interface DiaryMapper {
 	
 	
 	//비동기(HYUNJOO)
-	public List<Diary> asyncList();
+	public List<Diary> asyncList(Map<String, Object> map);
 	
 	public void asyncInsert(Diary diary);
 	

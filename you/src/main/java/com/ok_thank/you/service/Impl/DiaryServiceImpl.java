@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ok_thank.you.dto.Diary;
+import com.ok_thank.you.dto.DiarySearchReq;
 import com.ok_thank.you.mapper.DiaryMapper;
 import com.ok_thank.you.service.DiaryService;
 
@@ -49,10 +50,14 @@ public class DiaryServiceImpl implements DiaryService{
 	
 	//비동기(HYUNJOO)
 	@Override
-	public List<Diary> asyncList() {
+	public List<Diary> asyncList(DiarySearchReq searchParam) {
 		List<Diary> list = null;
 		try {
-			list = mapper.asyncList();
+			Map<String,Object> map = new HashMap<>();
+			String keyword = searchParam.getKeyword();
+			log.info("keyword: "+keyword);
+			map.put("keyword", "%"+keyword+"%");
+			list = mapper.asyncList(map);
 			log.info(list.toString());
 		} catch (Exception e) {
 			log.error("리스트 조회 실패! => {}", e.getMessage());

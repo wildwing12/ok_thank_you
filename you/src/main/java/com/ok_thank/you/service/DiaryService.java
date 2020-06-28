@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ok_thank.you.dto.Diary;
+import com.ok_thank.you.dto.DiarySearchReq;
 
 public interface DiaryService {
 
@@ -23,7 +24,7 @@ public interface DiaryService {
 	
 	
 	//비동기(HYUNJOO)
-	public List<Diary> asyncList();
+	public List<Diary> asyncList(DiarySearchReq searchParam);
 		
 	public void asyncInsert(Diary diary);
 	
