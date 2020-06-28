@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,4 +102,34 @@ public class DiaryServiceImpl implements DiaryService{
 		map.put("pageBegin",pageBegin);
 		return mapper.plist(map);
 	}
+	
+	@Override
+	public int getRowCnt(String writer) {
+		int count = 0;
+		try {
+			if(StringUtils.isNotEmpty(writer)) {
+				count = mapper.getRowCnt(writer);
+				log.info("글 갯수: "+count);
+			}
+		} catch (Exception e) {
+			count = -1;
+			log.error("조회 실패! => {}", e.getMessage());
+		}
+		return count;
+	}
+
+	@Override
+	public List<Diary> listLee(int pageScale, int begin) {
+		List<Diary> list = null;
+		try {
+			Map<String,Object> map = new HashMap<>();
+			map.put("pageScale",pageScale);
+			map.put("begin", begin);
+			list = mapper.listLee(map);
+		} catch (Exception e) {
+			log.error("paging 조회 실패! => {}", e.getMessage());
+		}
+		return list;
+	}
+
 }

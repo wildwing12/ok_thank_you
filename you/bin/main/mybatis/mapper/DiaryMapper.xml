@@ -12,6 +12,19 @@
 		WHERE d.writer = 'Lee'
 		ORDER BY idx DESC
 	</select>
+	<select id="listLee" resultType="com.ok_thank.you.dto.Diary">
+		SELECT A.*
+		FROM (SELECT @ROWNUM := @ROWNUM+1 AS rnum
+			  ,d.idx
+			  ,d.writer
+			  ,d.content
+			  ,date_format(d.reg_dt,'%Y-%m-%d %H:%i:%S') AS regDt
+			  ,date_format(d.udt_dt,'%Y-%m-%d %H:%i:%S') AS udtDt
+			FROM DIARY d, (SELECT @ROWNUM := 0) r
+			WHERE d.writer = 'Lee'
+			ORDER BY idx DESC) A
+		LIMIT #{pageScale} OFFSET #{begin}
+	</select>
 	<insert id="asyncInsert">
 		INSERT INTO DIARY(writer
 						 ,content
