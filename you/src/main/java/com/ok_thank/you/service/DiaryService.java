@@ -17,6 +17,10 @@ public interface DiaryService {
 
 	public Integer insert(Diary model);
 	
+	public int rowCnt();
+	
+	public List<Diary> List(int pageScale, int pageBegin);
+	
 	
 	//비동기(HYUNJOO)
 	public List<Diary> asyncList();
@@ -25,8 +29,8 @@ public interface DiaryService {
 	
 	public void asyncDelete(Integer idx);
 
-	public int rowCnt();
+	public int getRowCnt(String writer);
 
-	public List<Diary> List(int pageScale, int pageBegin);
+	public List<Diary> listLee(int pageScale, int begin);
 
 }

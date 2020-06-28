@@ -22,6 +22,10 @@ public interface DiaryMapper {
 
 	public Integer insert(Diary model);
 	
+	public int rowCnt();
+	
+	public List<Diary> plist(Map<String, Object> map);
+	
 	
 	//비동기(HYUNJOO)
 	public List<Diary> asyncList();
@@ -30,8 +34,8 @@ public interface DiaryMapper {
 	
 	public void asyncDelete(Integer idx);
 
-	public int rowCnt();
+	public int getRowCnt(String writer);
 
-	public List<Diary> plist(Map<String, Object> map);
+	public List<Diary> listLee(Map<String,Object> map);
 	
 }
