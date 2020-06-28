@@ -1,1 +1,1 @@
-const URI = 'http://localhost:8008';
+const PATH = 'http://localhost:8008';

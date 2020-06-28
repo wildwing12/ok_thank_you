@@ -48,14 +48,12 @@ async function list(key){
 	//$('tbody').empty();
 	let tbody = document.querySelector('tbody');
 	tbody.innerHTML = "";
-	if(key == '' || key == null || key == undefined){
-		key = '';
-	}
+	key = IgnoreEmptyValue(key);
 	try {
-		const res = await axios.get(URI+'/todo/lee/asyncList', {params: {keyword: key}});
+		const res = await axios.get(PATH+'/todo/lee/asyncList', {params: {keyword: key}});
 		//console.log('list => ',res);
-		if(res.status == 200){
-			const list = res.data.list;
+		const list = res.data.list;
+		if(res.status == 200 && res.data.cnt && list.length){
 			list.forEach((item, i) => {
 				//console.log(item);
 				$('<tr>')
@@ -77,25 +75,18 @@ async function list(key){
 
 $('#search').click(function(){
 	let keyword = $('#keyword').val();
-	if(keyword == '' || keyword == null || keyword == undefined){
-		keyword = '';
+	if(IsEmpty(keyword)){
+		alert('검색어를 입력해 주세요.');
+		return;
 	}
-	let searchParam = { keyword: keyword };
-	axios.get('/todo/lee/asyncList', { params: searchParam })
-		 .then(res => {
-			 //console.log(res);
-			 list(keyword);
-		 })
-		 .catch(e => {
-			console.log(e); 
-		 });
+	list(keyword);
 });
 
 const insert = async function(){
 	let content = $('#content').val();
 	let paramData = { content: content };
 	try {
-		const res = await axios.post(URI+'/todo/lee/insert', paramData);
+		const res = await axios.post(PATH+'/todo/lee/insert', paramData);
 		if(res.status == 200){
 			$('#content').val('');
 			list();
@@ -107,14 +98,15 @@ const insert = async function(){
 
 const asyncDelete = async (idx) => {
 	//console.log(idx);
-	try {
-		const res = await axios.delete(URI+'/todo/lee/'+idx);
-		if(res.status == 200){
-			list();
-		}
-	} catch (e) {
-		console.log(e);
-	}
+	await axios.delete(PATH+'/todo/lee/'+idx)
+		 .then(res => {
+			   if(res.status == 200){
+				   list();
+			   }
+		 })
+		 .catch(e => {
+			   console.log(e);
+		 });
 }
 </script>
 </body>

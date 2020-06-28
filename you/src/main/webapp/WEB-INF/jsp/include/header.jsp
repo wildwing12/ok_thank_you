@@ -13,3 +13,4 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script src="/js/constants.js"></script>
+<script src="/js/commonUtil.js"></script>
