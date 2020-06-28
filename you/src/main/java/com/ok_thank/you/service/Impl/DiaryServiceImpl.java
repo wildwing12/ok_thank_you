@@ -1,5 +1,6 @@
 package com.ok_thank.you.service.Impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -91,5 +92,13 @@ public class DiaryServiceImpl implements DiaryService{
 	public int rowCnt() {
 		int rowCnt = mapper.rowCnt();
 		return rowCnt;
+	}
+
+	@Override
+	public List<Diary> List(int pageScale, int pageBegin) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("pageScale", pageScale);
+		map.put("pageBegin",pageBegin);
+		return mapper.plist(map);
 	}
 }

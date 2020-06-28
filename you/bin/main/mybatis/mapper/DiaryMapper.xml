@@ -68,4 +68,20 @@
 	<select id="rowCnt" resultType="int">
 		select count(*) from DIARY where WRITER ='Kim'
 	</select>
+	<select id="plist" resultType="com.ok_thank.you.dto.Diary" >
+		select A.*
+		from (
+			SELECT
+				@ROWNUM := @ROWNUM+1 AS rnum
+				,D.IDX 
+				,D.WRITER 
+				,D.CONTENT 
+				,date_format(D.REG_DT,'%Y-%m-%d') as reg_dt
+				,D.UDT_DT 
+			FROM DIARY D ,(SELECT @ROWNUM:=0) R
+			WHERE D.WRITER ='Kim'
+			ORDER BY rnum desc
+		) A
+		limit #{pageScale} offset #{pageBegin}
+	</select>
 </mapper>
