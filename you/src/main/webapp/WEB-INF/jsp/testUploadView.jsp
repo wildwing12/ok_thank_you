@@ -30,7 +30,7 @@
 	<td>${list.content}</td>
 	<td>${list.regDate}</td>
 	<td>${list.cnt}</td>
-	<td><a href="/fileDownload?filename=${list.fileName}">${list.fileName}</a></td>
+	<td><a href="/fileDownload?oriname=${list.oriname}&filename=${list.fileName}">${list.oriname}</a></td>
 </tr>
 </c:forEach>
 </tbody>

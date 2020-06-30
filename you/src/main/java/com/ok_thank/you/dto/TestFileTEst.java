@@ -11,8 +11,24 @@ public class TestFileTEst {
 	private String content;
 	private Date regDate;
 	private int cnt;
-	private String fileName;
+	private String fileName;//리네임
 	private MultipartFile uploadFile;
+	public String getOriname() {
+		return oriname;
+	}
+	public void setOriname(String oriname) {
+		this.oriname = oriname;
+	}
+	public String getExt() {
+		return ext;
+	}
+	public void setExt(String ext) {
+		this.ext = ext;
+	}
+
+
+	private String oriname;//진짜 이름
+	private String ext;//확장자
 	
 	public MultipartFile getUploadFile() {
 		return uploadFile;

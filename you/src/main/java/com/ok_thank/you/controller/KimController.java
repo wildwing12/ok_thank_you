@@ -71,17 +71,21 @@ public class KimController {
 	@PostMapping("/uploadFileTest")
 	public ModelAndView uploadTest(ModelAndView mav, TestFileTEst test) {
 		String fileName = null;
+		String orginalFileName =null;
+		String ext=null;
 		MultipartFile uploadFile = test.getUploadFile();
 		try {
 			if(!uploadFile.isEmpty()) {
-				String orginalFileName = uploadFile.getOriginalFilename();
-				String ext = FilenameUtils.getExtension(orginalFileName);//확장자 구하기
+				orginalFileName = uploadFile.getOriginalFilename();
+				ext = FilenameUtils.getExtension(orginalFileName);//확장자 구하기
 				
 				UUID uuid = UUID.randomUUID();//UUID구하기
 				fileName = uuid+"."+ext;
 				uploadFile.transferTo(new File("C:\\temp\\"+fileName));
 			}
 			test.setFileName(fileName);
+			test.setExt(ext);
+			test.setOriname(orginalFileName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -101,16 +105,19 @@ public class KimController {
 	//파일 다운로드
 	@GetMapping("/fileDownload")
 	public void testView(HttpServletRequest request, HttpServletResponse response) {
-		String  filename = request.getParameter("filename");
+		String  filename = request.getParameter("filename");//변환된 파일 이름
+		String oriname = request.getParameter("oriname");//원래 파일 이름
 		String realFilename = "";
-		System.out.println(filename);//위에 파일 이름 찍어보기
+		System.out.println(oriname);//위에 파일 이름 찍어보기
 		
-		try {
+		try {// 파일 이름이 깨진면 사용하세요.
 			String browser = request.getHeader("User-Agent");//파일 인코딩
 			if(browser.contains("MSIE")|| browser.contains("Trident")||browser.contains("Chrome")) {
 				filename = URLEncoder.encode(filename,"UTF-8").replaceAll("\\+","%20");
+				oriname =  URLEncoder.encode(oriname,"UTF-8").replaceAll("\\+","%20");
 			} else {
 				filename = new String(filename.getBytes("UTF-8"),"ISO-8859-1");
+				oriname = new String(oriname.getBytes("UTF-8"),"ISO-8859-1");
 			}
 		} catch (UnsupportedEncodingException ex) {
 			System.out.println("에러 발생 :UnsupportedEncodingException ");
@@ -124,8 +131,8 @@ public class KimController {
 		
 		// 파일명 지정        
         response.setContentType("application/octer-stream");
-        response.setHeader("Content-Transfer-Encoding", "binary;");
-        response.setHeader("Content-Disposition", "attachment; filename=" + filename );
+        //response.setHeader("Content-Transfer-Encoding", "binary;");
+        response.setHeader("Content-Disposition", "attachment; filename=" + oriname );
         try {
             OutputStream os = response.getOutputStream();
             FileInputStream fis = new FileInputStream(realFilename);
