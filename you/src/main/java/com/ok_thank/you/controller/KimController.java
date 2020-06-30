@@ -29,6 +29,9 @@ import com.ok_thank.you.dto.Pager;
 import com.ok_thank.you.dto.TestFileTEst;
 import com.ok_thank.you.service.DiaryService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 public class KimController {
 
@@ -108,8 +111,8 @@ public class KimController {
 		String  filename = request.getParameter("filename");//변환된 파일 이름
 		String oriname = request.getParameter("oriname");//원래 파일 이름
 		String realFilename = "";
-		System.out.println(oriname);//위에 파일 이름 찍어보기
-		
+		//System.out.println(oriname);//위에 파일 이름 찍어보기
+		log.info("오리지널 이름=>{}", oriname);
 		try {// 파일 이름이 깨진면 사용하세요.
 			String browser = request.getHeader("User-Agent");//파일 인코딩
 			if(browser.contains("MSIE")|| browser.contains("Trident")||browser.contains("Chrome")) {
@@ -120,10 +123,12 @@ public class KimController {
 				oriname = new String(oriname.getBytes("UTF-8"),"ISO-8859-1");
 			}
 		} catch (UnsupportedEncodingException ex) {
+			
 			System.out.println("에러 발생 :UnsupportedEncodingException ");
 		}
 		realFilename = "C:\\temp\\"+filename;
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+realFilename);
+		log.info("리일 파일 네임=>{}", realFilename);
 		File file1 = new  File(realFilename);
 		if(!file1.exists()) {
 			return ;
@@ -147,6 +152,7 @@ public class KimController {
             os.close();
         } catch (Exception e) {
             System.out.println("FileNotFoundException : " + e);
+            log.info("에러내용 => {}", e);
         }
 	}
 	
