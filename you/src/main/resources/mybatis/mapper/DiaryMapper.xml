@@ -105,4 +105,12 @@
 		</if>
 		limit #{pageScale} offset #{pageBegin}
 	</select>
+	<insert id="uploadTest">
+		INSERT INTO boardtest(title,writer,content,reg_date,file_name)
+		VALUES(#{title}, #{writer}, #{content}, now(), #{fileName})
+	</insert>
+	
+	<select id="downLoad" resultType="com.ok_thank.you.dto.TestFileTEst">
+		select * from boardtest
+	</select>
 </mapper>

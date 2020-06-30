@@ -104,6 +104,34 @@ const list=(page,search)=>{
             </c:if>
 
 <br>
+
+<h1>파일첨부 연습</h1>
+	<hr>
+	<form action="/uploadFileTest" method="post" enctype="multipart/form-data">
+		<table border="1" style="margin: 0 auto; border: 1px solid black; border-collapse: collapse;">
+			<tr>
+				<td bgcolor="orange" width="70">제목</td>
+				<td align="left"><input type="text" name="title" /></td>
+			</tr>
+			<tr>
+				<td bgcolor="orange">작성자</td>
+				<td align="left"><input type="text" name="writer" size="10" /></td>
+			</tr>
+			<tr>
+				<td bgcolor="orange">내용</td>
+				<td align="left"><textarea name="content" cols="40" rows="10"></textarea></td>
+			</tr>
+			<tr>
+				<td bgcolor="orange" width="70">업로드</td><td align="left">
+				<input type="file" name="uploadFile"/></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="글 쓰기" /></td>
+			</tr>
+		</table>
+	</form>
+	<hr>
+	<a href="/testview">글보러 가기</a>
 <a href="/async/list">비동기 페이지</a>
 </body>
 </html>

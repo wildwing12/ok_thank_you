@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.ok_thank.you.dto.Diary;
+import com.ok_thank.you.dto.TestFileTEst;
 
 @Repository
 @Mapper
@@ -37,5 +38,9 @@ public interface DiaryMapper {
 	public int getRowCnt(String writer);
 
 	public List<Diary> listLee(Map<String,Object> map);
+
+	public void uploadTest(TestFileTEst test);
+
+	public List<TestFileTEst> downLoad();
 	
 }

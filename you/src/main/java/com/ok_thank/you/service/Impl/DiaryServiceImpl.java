@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 
 import com.ok_thank.you.dto.Diary;
 import com.ok_thank.you.dto.DiarySearchReq;
+import com.ok_thank.you.dto.TestFileTEst;
 import com.ok_thank.you.mapper.DiaryMapper;
 import com.ok_thank.you.service.DiaryService;
 
@@ -240,6 +241,17 @@ public class DiaryServiceImpl implements DiaryService{
 		  response.getOutputStream().flush();
 		  response.getOutputStream().close();
 		
+	}
+
+	@Override
+	public void uploadTest(TestFileTEst test) {
+		mapper.uploadTest(test);
+		
+	}
+
+	@Override
+	public List<TestFileTEst> downLoad() {
+		return mapper.downLoad();
 	}
 
 }

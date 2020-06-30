@@ -1,18 +1,17 @@
 package com.ok_thank.you.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ok_thank.you.dto.Diary;
 import com.ok_thank.you.dto.Pager;
+import com.ok_thank.you.dto.TestFileTEst;
 import com.ok_thank.you.service.DiaryService;
 
 @RestController
@@ -65,4 +66,81 @@ public class KimController {
 	  public void ExcelPoi(  HttpServletResponse response, Model model) throws Exception {
 		diaryService.ExcelPoi(response,model);
 		}
+	
+//	파일 업로드
+	@PostMapping("/uploadFileTest")
+	public ModelAndView uploadTest(ModelAndView mav, TestFileTEst test) {
+		String fileName = null;
+		MultipartFile uploadFile = test.getUploadFile();
+		try {
+			if(!uploadFile.isEmpty()) {
+				String orginalFileName = uploadFile.getOriginalFilename();
+				String ext = FilenameUtils.getExtension(orginalFileName);//확장자 구하기
+				
+				UUID uuid = UUID.randomUUID();//UUID구하기
+				fileName = uuid+"."+ext;
+				uploadFile.transferTo(new File("C:\\temp\\"+fileName));
+			}
+			test.setFileName(fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		diaryService.uploadTest(test);
+		mav.setView(new RedirectView("/todo/kim"));
+		return mav;
+		
+	}
+	
+	@GetMapping("/testview")
+	public ModelAndView view(ModelAndView mav) {
+		List<TestFileTEst> list = diaryService.downLoad();
+		mav.addObject("list",list);
+		mav.setViewName("testUploadView");
+		return mav;
+	}
+	//파일 다운로드
+	@GetMapping("/fileDownload")
+	public void testView(HttpServletRequest request, HttpServletResponse response) {
+		String  filename = request.getParameter("filename");
+		String realFilename = "";
+		System.out.println(filename);//위에 파일 이름 찍어보기
+		
+		try {
+			String browser = request.getHeader("User-Agent");//파일 인코딩
+			if(browser.contains("MSIE")|| browser.contains("Trident")||browser.contains("Chrome")) {
+				filename = URLEncoder.encode(filename,"UTF-8").replaceAll("\\+","%20");
+			} else {
+				filename = new String(filename.getBytes("UTF-8"),"ISO-8859-1");
+			}
+		} catch (UnsupportedEncodingException ex) {
+			System.out.println("에러 발생 :UnsupportedEncodingException ");
+		}
+		realFilename = "C:\\temp\\"+filename;
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+realFilename);
+		File file1 = new  File(realFilename);
+		if(!file1.exists()) {
+			return ;
+		}
+		
+		// 파일명 지정        
+        response.setContentType("application/octer-stream");
+        response.setHeader("Content-Transfer-Encoding", "binary;");
+        response.setHeader("Content-Disposition", "attachment; filename=" + filename );
+        try {
+            OutputStream os = response.getOutputStream();
+            FileInputStream fis = new FileInputStream(realFilename);
+ 
+            int ncount = 0;
+            byte[] bytes = new byte[1024*10];
+ 
+            while ((ncount = fis.read(bytes)) != -1 ) {
+                os.write(bytes, 0, ncount);
+            }
+            fis.close();
+            os.close();
+        } catch (Exception e) {
+            System.out.println("FileNotFoundException : " + e);
+        }
+	}
+	
 }

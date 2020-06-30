@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import com.ok_thank.you.dto.Diary;
 import com.ok_thank.you.dto.DiarySearchReq;
+import com.ok_thank.you.dto.TestFileTEst;
 
 public interface DiaryService {
 
@@ -39,5 +40,9 @@ public interface DiaryService {
 	public List<Diary> listLee(int pageScale, int begin);
 
 	public void ExcelPoi(HttpServletResponse response, Model model) throws Exception;
+
+	public void uploadTest(TestFileTEst test);
+
+	public List<TestFileTEst> downLoad();
 
 }
