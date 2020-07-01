@@ -133,5 +133,46 @@ const list=(page,search)=>{
 	<hr>
 	<a href="/testview">글보러 가기</a>
 <a href="/async/list">비동기 페이지</a>
+<!-- @breif accept 태그는 파일 업로드시 그것을 이미지 파일로 제한한다. -->
+<br>
+<h1 style="text-align: center;">섬네일기능</h1>
+    <input type="file" id="upImgFiles" onChange="uploadImgPreview();" accept="image/*" multiple>
+
+    <hr/>
+<!-- <img alt="aa" src="" id='imgs' width="100px" height="100px"> -->
+   <div id="thumbnailImgs"></div>
+    <script>
+    function uploadImgPreview() {
+    	// @breif 업로드 파일 읽기
+    	let fileList = document.getElementById( "upImgFiles" ).files;
+		// @breif 업로드 파일 읽기
+		function readAndPreview( fileList ) {
+			// @breif 이미지 확장자 검사
+			if ( /\.(jpe?g|png|gif)$/i.test( fileList.name ) ) {
+				let reader = new FileReader();
+				reader.addEventListener( "load", function() {
+					let image = new Image();
+					image.width = "100";
+					image.height = "100";
+					image.title = fileList.name;
+					image.src = this.result;
+					//경로에 사진 붙여주기
+					//$('#imgs').attr("src",this.result);
+					// @details 이미지 확장자 검사(div에 붙여주는 방법)
+					document.getElementById( "thumbnailImgs" ).appendChild( image );
+				}, false );
+				// @details readAsDataURL( )을 통해 파일의 URL을 읽어온다.
+				if( fileList ) {
+					reader.readAsDataURL( fileList );
+				}
+			}
+		}
+    	if( fileList ) {
+		// @details readAndPreview() 함수를 forEach문을통한 반복 수행
+		[].forEach.call( fileList, readAndPreview );
+        }
+
+    }
+    </script>
 </body>
 </html>
