@@ -23,6 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired 
     AuthFailureHandler authFailureHandler;
+    
+
  
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -37,9 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         
         http.authorizeRequests() 
-            .antMatchers("/user/**").access("hasRole('ROLE_USER')")    // /user/** 경로의 경우 ROLE_USER의 권한을 가진 경우에 허용한다
-            .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")     // /admin/** 경로의 경우 ROLE_ADMIN의 권한을 가진 경우에 허용한다
-            
+            .antMatchers("/user/**","/todo/**").access("hasRole('ROLE_USER')")    // /user/** 경로의 경우 ROLE_USER의 권한을 가진 경우에 허용한다
+            .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')") // /admin/** 경로의 경우 ROLE_ADMIN의 권한을 가진 경우에 허용한다
             // //누구나 접속할 수 있는 페이지이기 때문에 누구나 접근이 가능하다 (.permitAll())
             .antMatchers("/home"
                     ,"/login/login"
@@ -64,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/login/login")  // 이 경로로 리다이렉트 하고
             .invalidateHttpSession(true); // 세션 초기화
         
+        http.exceptionHandling().accessDeniedPage("/user/denied");//페이지를 넣을 수도 있고 handler를 넣을 수도 있다.
     }
     
     //JSP의 리소스 파일이나 자바스크립트 파일이 저장된 경로는 무시를 한다
