@@ -1,8 +1,14 @@
 package com.ok_thank.you.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +73,16 @@ public class LoginController {
     @RequestMapping("/home")
     public String home() {
         return  "home/home";
+    }
+    
+    //권한이 없는 사람 페이지 이동
+    @RequestMapping("/user/denied")
+    public String denied(Model model) {// AuthenticateAction auth, HttpServletRequest req) {
+    	// 권한 없는 사용자가 접근을 하게 되면 security에서 해당 request에 AccessDeniedException을 전달 하는데 속성명은WebAttributes.ACCESS_DENIED_403으로 전달한다.
+    	//AccessDeniedException ade = (AccessDeniedException) req.getAttribute(WebAttributes.ACCESS_DENIED_403);
+    	model.addAttribute("auth","성공");
+    	model.addAttribute("errMsg","하다");
+    	return "login/denied";
     }
     
 }

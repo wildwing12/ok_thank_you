@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class AuthFailureHandler implements AuthenticationFailureHandler  {
         LoginLog loginLog = new LoginLog();
         String id = "";
         String msg = "";
- 
+        
         try {
             
             id = exception.getMessage();
@@ -46,15 +47,14 @@ public class AuthFailureHandler implements AuthenticationFailureHandler  {
                 loginLog.setId(id);
                 loginLog.setStatus("FAILD");
                 securityService.setInsertLoginLog(loginLog);
-                msg="비밀번호가 틀렸습니다.";
+               msg="error";
             }else {
-                msg="아이디가 없습니다.";
+               msg="error";
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    
-        response.sendRedirect("/login?msg="+msg);
+        response.sendRedirect("/login/login?msg="+msg);
     }
  
 }

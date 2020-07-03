@@ -44,11 +44,14 @@
                </div>
         </div>      
     </div>
+    <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}"> <p class="error">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p> <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/> </c:if>
+
 </body>
 <script>
     $(document).ready(function(){
-        <c:if test="${not empty msg}">
-            alert('${msg}');
+        <c:if test="${msg!=null}">
+           const msg ="${msg}";
+        	alert(msg);
         </c:if>
     });
 </script>
