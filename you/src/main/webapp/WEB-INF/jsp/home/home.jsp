@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,6 +69,7 @@
         <a href="/login/logout">[로그아웃]</a>
         <a href="/todo/kim">김종학 할일목록</a>
         <a href="/todo/lee">이현주 할일목록</a>
+        <p>당신의 이름은${sessionScope.member.id}입니다.</p>
     </div>
 </body>
 </html>

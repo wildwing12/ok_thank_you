@@ -8,7 +8,8 @@ import com.ok_thank.you.dto.Member;
  
 public interface SecurityService extends UserDetailsService {
     // 시큐리티 사용자 인증
-    UserDetails loadUserByUsername(String id);
+    
+	UserDetails loadUserByUsername(String id);
     // 중복아이디 체크
     Member getSelectMeberInfo(String id) throws Exception;
     //회원가입
@@ -19,6 +20,8 @@ public interface SecurityService extends UserDetailsService {
     int setUpdatePasswordLockCntReset(String id) throws Exception;
     
     int setInsertLoginLog(LoginLog loginLog) throws Exception;
+	
+    Member infoMember(String id);
 }
 
 

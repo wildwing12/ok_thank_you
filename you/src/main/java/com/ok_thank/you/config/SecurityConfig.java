@@ -11,19 +11,26 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.ok_thank.you.handlers.AuthFailureHandler;
 import com.ok_thank.you.handlers.AuthProvider;
 import com.ok_thank.you.handlers.AuthSuccessHandler;
+import com.ok_thank.you.handlers.WebAccessDeniedHandler;
  
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {  
     
+	private final WebAccessDeniedHandler webAccessDeniedHandler;
+	
     @Autowired 
-    AuthProvider authProvider;
+    AuthProvider authProvider;//로그인 정보 담당하는 핸들러
  
     @Autowired 
-    AuthSuccessHandler authSuccessHandler;
+    AuthSuccessHandler authSuccessHandler;//로그인 성공했을 때 핸들러
     
     @Autowired 
-    AuthFailureHandler authFailureHandler;
+    AuthFailureHandler authFailureHandler;//로그인 실패했을때 핸들러
     
+    @Autowired
+    public SecurityConfig(WebAccessDeniedHandler webAccessDeniedHandler) {
+    	this.webAccessDeniedHandler = webAccessDeniedHandler;
+    }
 
  
     @Override
@@ -65,7 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/login/login")  // 이 경로로 리다이렉트 하고
             .invalidateHttpSession(true); // 세션 초기화
         
-        http.exceptionHandling().accessDeniedPage("/user/denied");//페이지를 넣을 수도 있고 handler를 넣을 수도 있다.
+        //http.exceptionHandling().accessDeniedPage("/user/denied");//페이지를 넣을 수도 있고 handler를 넣을 수도 있다.
+       http.exceptionHandling().accessDeniedHandler(webAccessDeniedHandler);//핸들러를 이런식으로 만들어서 넣을 수 있다. 
     }
     
     //JSP의 리소스 파일이나 자바스크립트 파일이 저장된 경로는 무시를 한다

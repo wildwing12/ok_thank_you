@@ -8,7 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-${errMsg }
-${auth }
+<c:if test="${errMsg !=null }">
+<script type="text/javascript">
+ alert("접근 권한이 없습니다.");
+ history.back();
+</script>
+</c:if>
+
 </body>
 </html>

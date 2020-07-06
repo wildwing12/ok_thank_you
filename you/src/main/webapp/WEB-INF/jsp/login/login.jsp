@@ -36,6 +36,7 @@
                                    <label>
                                        <input type="checkbox" name="remember-me"> 아이디 기억하기
                                    </label>
+                                   <a href = "/join/join">회원가입</a>
                                </div>
                                <button name="submit" type="submit" class="btn btn-block btn-primary text-light">로그인</button>
                            </form>
@@ -44,7 +45,9 @@
                </div>
         </div>      
     </div>
-    <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}"> <p class="error">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p> <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/> </c:if>
+    <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}"> 
+    <p class="error">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p> 
+    <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/> </c:if>
 
 </body>
 <script>
