@@ -11,6 +11,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.ok_thank.you.handlers.AuthFailureHandler;
 import com.ok_thank.you.handlers.AuthProvider;
 import com.ok_thank.you.handlers.AuthSuccessHandler;
+import com.ok_thank.you.handlers.LoginUrlAuth;
 import com.ok_thank.you.handlers.WebAccessDeniedHandler;
  
 @EnableWebSecurity
@@ -32,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	this.webAccessDeniedHandler = webAccessDeniedHandler;
     }
 
+    @Autowired
+    LoginUrlAuth login;
  
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -43,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         
         //CROF 설정을 해제합니다
         //초기 개발시에만 설정합니다
-        http.csrf().disable();
+        http.csrf().disable()
+        .exceptionHandling().authenticationEntryPoint(login);
         
         http.authorizeRequests() 
             .antMatchers("/user/**","/todo/**").access("hasRole('ROLE_USER')")    // /user/** 경로의 경우 ROLE_USER의 권한을 가진 경우에 허용한다

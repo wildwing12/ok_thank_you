@@ -1,5 +1,7 @@
 package com.ok_thank.you.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -21,7 +23,7 @@ public interface SecurityService extends UserDetailsService {
     
     int setInsertLoginLog(LoginLog loginLog) throws Exception;
 	
-    Member infoMember(String id);
+    Member infoMember(HttpSession session, String id);
 }
 
 

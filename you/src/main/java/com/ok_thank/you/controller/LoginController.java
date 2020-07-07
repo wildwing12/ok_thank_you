@@ -75,14 +75,11 @@ public class LoginController {
     
     //로그인 성공후 이동페이지
     @RequestMapping("/home")
-    public String home(HttpSession session, Model model, Principal principal) {
+    public String home(HttpSession session, Model model) {
     	//System.out.println(">>>>>>>>>>>>>>>>>>"+user.getAuthorities());
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String id = auth.getName();
-    	Member member= securityService.infoMember(id);
-    	log.info("유저 이름은 ={}", member.getMemberName());
-
-    	session.setAttribute("member", member);
+    	Member member= securityService.infoMember(session,id);
         return  "home/home";
     }
     

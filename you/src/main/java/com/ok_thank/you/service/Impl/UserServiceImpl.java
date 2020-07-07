@@ -3,9 +3,13 @@ package com.ok_thank.you.service.Impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +19,10 @@ import com.ok_thank.you.dto.LoginLog;
 import com.ok_thank.you.dto.Member;
 import com.ok_thank.you.mapper.LoginMapper;
 import com.ok_thank.you.service.SecurityService;
+
+import lombok.extern.slf4j.Slf4j;
  
+@Slf4j
 @Service
 public class UserServiceImpl implements SecurityService {
     
@@ -61,8 +68,13 @@ public class UserServiceImpl implements SecurityService {
 	}
 
 	@Override
-	public Member infoMember(String id) {
-		return loingMapper.getSelectMeberInfo(id);
+	public Member infoMember(HttpSession session, String id) {
+    	Member member = loingMapper.getSelectMeberInfo(id);
+    	if(member != null) {
+    		log.info("유저 이름은 ={}", member.getMemberName());
+    		session.setAttribute("member", member);
+    	}
+		return member;
 	}
  
 }
