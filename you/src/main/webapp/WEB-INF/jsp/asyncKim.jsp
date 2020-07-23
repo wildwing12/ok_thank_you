@@ -43,12 +43,10 @@ const asyncSelect = (idx)=>{
 		$("#deleteBtn").click(function(){
 			for(var i = 0; i<delInput.length; i++){
 				console.log(delInput[i]);
-			    event.cancelBubble = true;
-			      event.returnValue = false;
-			 alert("새로고침 방지");
-
 			}
-			list()
+			 event.cancelBubble = true;
+		      event.returnValue = false;
+		 		alert("새로고침 방지");
 		})
 	}else{
 		delInput.splice(delInput.indexOf(idx),1);
