@@ -286,4 +286,9 @@ public class DiaryServiceImpl implements DiaryService{
 		
 	}
 
+	@Override
+	public int adelete(int val) {
+		return mapper.adelete(val);
+	}
+
 }

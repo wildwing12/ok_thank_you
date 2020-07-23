@@ -42,5 +42,7 @@ public interface DiaryMapper {
 	public void uploadTest(TestFileTEst test);
 
 	public List<TestFileTEst> downLoad();
+	//비동기 삭제
+	public int adelete(int val);
 	
 }

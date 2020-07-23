@@ -113,4 +113,9 @@
 	<select id="downLoad" resultType="com.ok_thank.you.dto.TestFileTEst">
 		select * from boardtest
 	</select>
+	<delete id="adelete">
+		DELETE 
+		FROM DIARY
+		WHERE IDX = #{idx}
+	</delete>
 </mapper>

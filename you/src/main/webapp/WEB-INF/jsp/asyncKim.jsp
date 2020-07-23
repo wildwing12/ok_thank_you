@@ -16,12 +16,15 @@ async function list(){
 		
 			list.forEach((item,i)=>{
 				$('<tr>')
+				.append($('<td>').append($('<input>').attr('type','checkbox').attr('id',item.IDX).attr('name','chk').attr('onchange','asyncSelect('+item.IDX+')')))
 				.append($('<td>').html(item.RNUM))
 				.append($('<td>').html(item.CONTENT))
 				.append($('<td>').html(item.WRITER))
 				.append($('<td>').html(item.REG_DT))
-				.append($('<td>').append($('<button>').attr('id','del'+i).html('쥬드')))
+				.append($('<td>').append($('<button>').attr('id','del'+i).attr('onclick','asyncDelete('+item.IDX+')').html('쥬드')))
 				.appendTo('tbody');
+				
+				
 				i++;
 			})
 		
@@ -32,6 +35,28 @@ async function list(){
 	}
 }
 
+var delInput = [];
+const asyncSelect = (idx)=>{
+	if($("#"+idx).is(":checked")==true){
+		delInput.push(idx);
+		console.log(delInput);
+		$("#deleteBtn").click(function(){
+			for(var i = 0; i<delInput.length; i++){
+				console.log(delInput[i]);
+			    event.cancelBubble = true;
+			      event.returnValue = false;
+			 alert("새로고침 방지");
+
+			}
+			list()
+		})
+	}else{
+		delInput.splice(delInput.indexOf(idx),1);
+		console.log(delInput);
+	}
+}
+console.log(delInput);
+
 const ainsert = async ()=>{
 	let cont=document.getElementsByName('content')[0].value;
 	try {
@@ -41,17 +66,37 @@ const ainsert = async ()=>{
 		console.log(e);
 	}
 }
+//선택한 selectbox 처리
+const asyncDelete = async (idx) => {
+	//console.log(idx);
+	await axios.delete(PATH+'/todo/lee/'+idx)
+		 .then(res => {
+			   if(res.status == 200){
+				   list();
+			   }
+		 })
+		 .catch(e => {
+			   console.log(e);
+		 });
+}
+
+
+//리스트 실행
 list();
 </script>
 </head>
 <body>
-<script type="text/javascript">
 
-</script>
+<!-- 삭제를 위한 form태그 -->
+<form id="delfm" name="delfm">
+</form>
+
 <h1 style="text-align: center;">비동기 페이지</h1>
+<input type="button" id ="deleteBtn" value="삭제연습">
 <table border="1" style="margin: 0 auto; border: 1px solid black; border-collapse: collapse;" >
 	<thead>
 		<tr>
+			<th>박스</th>
 			<th>번호</th>
 			<th>글내용</th>
 			<th>작성자</th>

@@ -49,4 +49,6 @@ public interface DiaryService {
 	public void fileDownload(HttpServletRequest request, HttpServletResponse response, String filename, String oriname,
 			String realFilename);
 
+	//비동기 삭제
+	public int adelete(int val);
 }
