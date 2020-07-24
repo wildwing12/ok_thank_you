@@ -39,21 +39,50 @@ var delInput = [];
 const asyncSelect = (idx)=>{
 	if($("#"+idx).is(":checked")==true){
 		delInput.push(idx);
+		$("#delfm").append($('<input>').attr('name','idxa').attr('value',idx));
 		console.log(delInput);
-		$("#deleteBtn").click(function(){
-			for(var i = 0; i<delInput.length; i++){
-				console.log(delInput[i]);
-			}
-			 event.cancelBubble = true;
-		      event.returnValue = false;
-		 		alert("새로고침 방지");
-		})
 	}else{
 		delInput.splice(delInput.indexOf(idx),1);
+		$("input[name='idxa']:input[value='"+idx+"']").remove();
 		console.log(delInput);
 	}
 }
-console.log(delInput);
+
+//다중 삭제 도전
+const deleteTest=()=>{
+	console.log($("#delfm").serialize());
+	if(confirm("삭제 하시겠습니까?")){
+		if($("#delfm").serialize()===""){
+			alert("값이 존재 하지 않습니다.");
+		}else{
+			var values = $("input[name='idxa']").length;
+			alert(values);
+			var arr=[];
+			for(var i = 0; i<values;i++){
+				arr[i] = $("input[name='idxa']").eq(i).val();
+				//console.log(arr[0]);
+				asyncDelete(arr[i]);
+			
+			}
+			list();
+		}
+	}
+	
+}
+
+/* const asyncdeleteTest = async (idx) => {
+	//console.log(idx);
+	await axios.delete(PATH+'/async/delete/'+idx)
+		 .then(res => {
+			   if(res.status == 200){
+				   list();
+			   }
+		 })
+		 .catch(e => {
+			   console.log(e);
+		 });
+} */
+
 
 const ainsert = async ()=>{
 	let cont=document.getElementsByName('content')[0].value;
@@ -64,13 +93,13 @@ const ainsert = async ()=>{
 		console.log(e);
 	}
 }
-//선택한 selectbox 처리
+//일반 삭제
 const asyncDelete = async (idx) => {
 	//console.log(idx);
 	await axios.delete(PATH+'/todo/lee/'+idx)
 		 .then(res => {
 			   if(res.status == 200){
-				   list();
+				  // list();
 			   }
 		 })
 		 .catch(e => {
@@ -90,7 +119,7 @@ list();
 </form>
 
 <h1 style="text-align: center;">비동기 페이지</h1>
-<input type="button" id ="deleteBtn" value="삭제연습">
+<button id="deleteBtn" onclick="deleteTest()">삭제 연습</button>
 <table border="1" style="margin: 0 auto; border: 1px solid black; border-collapse: collapse;" >
 	<thead>
 		<tr>
