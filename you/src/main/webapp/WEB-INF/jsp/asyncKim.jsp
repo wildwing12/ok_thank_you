@@ -39,7 +39,7 @@ var delInput = [];
 const asyncSelect = (idx)=>{
 	if($("#"+idx).is(":checked")==true){
 		delInput.push(idx);
-		$("#delfm").append($('<input>').attr('name','idxa').attr('value',idx));
+		$("#delfm").append($('<input>').attr('type','hidden').attr('name','idxa').attr('value',idx));
 		console.log(delInput);
 	}else{
 		delInput.splice(delInput.indexOf(idx),1);
@@ -56,7 +56,6 @@ const deleteTest=()=>{
 			alert("값이 존재 하지 않습니다.");
 		}else{
 			var values = $("input[name='idxa']").length;
-			alert(values);
 			var arr=[];
 			for(var i = 0; i<values;i++){
 				arr[i] = $("input[name='idxa']").eq(i).val();
@@ -65,6 +64,7 @@ const deleteTest=()=>{
 			
 			}
 			list();
+			alert("삭제되었습니다.")
 		}
 	}
 	
@@ -73,11 +73,6 @@ const deleteTest=()=>{
 const asyncDeletes = async (idx) => {
 	//console.log(idx);
 	await axios.delete(PATH+'/todo/lee/'+idx)
-		 .then(res => {
-			   if(res.status == 200){
-				  alert("삭제되었습니다.");
-			   }
-		 })
 		 .catch(e => {
 			   console.log(e);
 		 });
