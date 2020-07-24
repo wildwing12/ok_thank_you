@@ -61,7 +61,7 @@ const deleteTest=()=>{
 			for(var i = 0; i<values;i++){
 				arr[i] = $("input[name='idxa']").eq(i).val();
 				//console.log(arr[0]);
-				asyncDelete(arr[i]);
+				asyncDeletes(arr[i]);
 			
 			}
 			list();
@@ -70,18 +70,18 @@ const deleteTest=()=>{
 	
 }
 
-/* const asyncdeleteTest = async (idx) => {
+const asyncDeletes = async (idx) => {
 	//console.log(idx);
-	await axios.delete(PATH+'/async/delete/'+idx)
+	await axios.delete(PATH+'/todo/lee/'+idx)
 		 .then(res => {
 			   if(res.status == 200){
-				   list();
+				  alert("삭제되었습니다.");
 			   }
 		 })
 		 .catch(e => {
 			   console.log(e);
 		 });
-} */
+}
 
 
 const ainsert = async ()=>{
@@ -99,7 +99,7 @@ const asyncDelete = async (idx) => {
 	await axios.delete(PATH+'/todo/lee/'+idx)
 		 .then(res => {
 			   if(res.status == 200){
-				  // list();
+				  list();
 			   }
 		 })
 		 .catch(e => {
