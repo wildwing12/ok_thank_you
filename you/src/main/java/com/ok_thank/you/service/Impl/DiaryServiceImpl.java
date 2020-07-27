@@ -291,4 +291,9 @@ public class DiaryServiceImpl implements DiaryService{
 		return mapper.adelete(val);
 	}
 
+	@Override
+	public int cnt() {
+		return mapper.cnt();
+	}
+
 }

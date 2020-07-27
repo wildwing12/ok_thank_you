@@ -16,12 +16,14 @@ public class Pager {
 	private int pageEnd; // #{end}에 전달될 값
 	private int blockStart; //페이지블록의 시작페이지 번호
 	private int blockEnd; //페이지블록의 끝페이지 번호
+	private int count;
 
 	//getter,setter만 생성, 단 상수2개는(PAGE_SCALE,BLOCK_SCALE)빼고 만듦
 
 	// Pager(레코드갯수, 보여줄페이지번호) 
 	public Pager(int count, int curPage){
 		curBlock=1; //페이지블록을 1로 초기화
+		this.count = count;
 		this.curPage=curPage; 
 		setTotPage(count); //전체 페이지 갯수 계산
 		setPageRange(); // #{start}, #{end} 값 계산
@@ -136,5 +138,14 @@ public class Pager {
 	}
 	public void setBlockEnd(int blockEnd) {
 		this.blockEnd = blockEnd;
+	}
+	public void setTotBlock(int totBlock) {
+		this.totBlock = totBlock;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

@@ -51,4 +51,6 @@ public interface DiaryService {
 
 	//비동기 삭제
 	public int adelete(int val);
+
+	public int cnt();
 }

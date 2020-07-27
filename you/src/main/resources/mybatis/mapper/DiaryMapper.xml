@@ -69,16 +69,21 @@
 	</insert>
 	
 	<select id="aList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		SELECT
-			FORMAT(@ROWNUM := @ROWNUM+1, 0) AS RNUM
-			,D.IDX
-			,D.WRITER
-			,D.CONTENT
-			,date_format(D.REG_DT,'%Y-%m-%d') as REG_DT
-			,D.UDT_DT
-		FROM DIARY D ,(SELECT @ROWNUM:=0) R
-		WHERE D.WRITER ='Kim'
-		ORDER BY IDX 
+		select A.*
+		from (
+			SELECT
+				@ROWNUM := @ROWNUM+1 AS RNUM
+				,D.IDX 
+				,D.WRITER 
+				,D.CONTENT 
+				,date_format(D.REG_DT,'%Y-%m-%d') as REG_DT
+				,D.UDT_DT 
+			FROM DIARY D ,(SELECT @ROWNUM:=0) R
+			WHERE D.WRITER ='Kim'
+			ORDER BY rnum desc
+		) A
+		where 1=1
+		limit #{pageScale} offset #{pageBegin}
 	</select>
 	<select id="rowCnt" resultType="int">
 		select count(*) from DIARY where WRITER ='Kim'
@@ -118,4 +123,7 @@
 		FROM DIARY
 		WHERE IDX = #{idx}
 	</delete>
+	<select id="cnt" resultType="int">
+		select count(*) from DIARY where WRITER ='Kim'
+	</select>
 </mapper>
